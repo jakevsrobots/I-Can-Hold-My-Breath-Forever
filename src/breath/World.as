@@ -14,6 +14,7 @@ package breath {
         public static var TILE_SIZE:int = 8;
         public var walls_map:FlxTilemap;
         public var water_map:FlxTilemap;
+        public var safezone_map:FlxTilemap;        
         public var width:uint;
         public var height:uint;        
         
@@ -30,6 +31,12 @@ package breath {
             water_map.startingIndex = 0;
             water_map.collideIndex = 1;
             water_map.auto = FlxTilemap.AUTO;
+
+            // In the safe zone, character has no gravity but cannot drown.
+            safezone_map = new FlxTilemap;
+            safezone_map.startingIndex = 0;
+            safezone_map.collideIndex = 1;
+            safezone_map.auto = FlxTilemap.AUTO;
             
             var map:Object = JSON.decode(new MapJSON);
 
@@ -41,7 +48,8 @@ package breath {
                     walls_map.loadMap(layer.tiles, AutoTiles, TILE_SIZE, TILE_SIZE);
                 } else if(layer.name == 'water') {
                     water_map.loadMap(layer.tiles, WaterAutoTiles, TILE_SIZE, TILE_SIZE);
-                    
+                } else if(layer.name == 'safezone') {
+                    safezone_map.loadMap(layer.tiles, AutoTiles, TILE_SIZE, TILE_SIZE);
                 }
             }
         }

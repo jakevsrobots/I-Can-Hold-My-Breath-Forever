@@ -27,6 +27,12 @@ package breath {
             world.walls_map.collide(player);
 
             if(world.water_map.overlaps(player)) {
+                player.in_water = true;
+            } else {
+                player.in_water = false;
+            }
+
+            if(world.safezone_map.overlaps(player) || world.water_map.overlaps(player)) {
                 player.gravity_on = false;
             } else {
                 player.gravity_on = true;

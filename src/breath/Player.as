@@ -6,6 +6,7 @@ package breath {
         private var PlayerImage:Class;
 
         public var gravity_on:Boolean = true;
+        public var in_water:Boolean = false;        
         private var _move_speed:int;
         
         public function Player(X:Number, Y:Number):void {
@@ -18,10 +19,12 @@ package breath {
             _move_speed = 700;
             drag.x = 500;
 
-            width = 14;
+            width = 4;
+            offset.x = 6;
         }
 
         override public function update():void {
+            // Physics/movement
             if(gravity_on) {
                 acceleration.y = 420;
                 drag.x = 500;
@@ -45,7 +48,15 @@ package breath {
                 } else if(FlxG.keys.DOWN) {
                     velocity.y += _move_speed * FlxG.elapsed;                
                 }
-            }            
+            }
+
+            // Animation
+            if(in_water) {
+                alpha = 0.7;
+            } else {
+                alpha = 1.0;
+            }
+            
             super.update();
         }
     }

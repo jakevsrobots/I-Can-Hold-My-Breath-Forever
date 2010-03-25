@@ -8,6 +8,8 @@ package breath {
         private var world:World;
         private var player:Player;
 
+        public var restore_point_id:String = '0';
+        
         override public function create():void {
             world = new World();
             
@@ -36,6 +38,21 @@ package breath {
                 player.gravity_on = false;
             } else {
                 player.gravity_on = true;
+            }
+
+            // Nudge the player up if they're in the safe zone.
+            if(world.safezone_map.overlaps(player)) {
+                player.push_up = true;
+            } else {
+                player.push_up = false;                
+            }
+
+            // Check air bubble entrances
+            for(var bubble_id:String in world.airbubble_entrances) {
+                var air_bubble_entrance:FlxObject = world.airbubble_entrances[bubble_id];
+                    if(air_bubble_entrance.overlaps(player)) {
+                        restore_point_id = bubble_id;
+                    }
             }
             
             super.update();

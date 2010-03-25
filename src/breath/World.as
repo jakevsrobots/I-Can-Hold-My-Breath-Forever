@@ -1,6 +1,8 @@
 package breath {
     import org.flixel.*;
 
+    import flash.utils.Dictionary;
+    
     import com.adobe.serialization.json.JSON;
 
     public class World {
@@ -17,6 +19,9 @@ package breath {
         public var safezone_map:FlxTilemap;        
         public var width:uint;
         public var height:uint;        
+
+        public var airbubble_entrances:Dictionary;
+        public var airbubble_restore_points:Dictionary;
         
         public function World():void {
             walls_map = new FlxTilemap;
@@ -37,12 +42,17 @@ package breath {
             safezone_map.startingIndex = 0;
             safezone_map.collideIndex = 1;
             safezone_map.auto = FlxTilemap.AUTO;
+
+            airbubble_entrances = new Dictionary;
+            airbubble_restore_points = new Dictionary;            
             
             var map:Object = JSON.decode(new MapJSON);
 
             width = parseInt(map.width);
             height = parseInt(map.height);
 
+            // Tile layers
+            
             for each(var layer:Object in map.layers) {
                 if(layer.name == 'walls') {
                     walls_map.loadMap(layer.tiles, AutoTiles, TILE_SIZE, TILE_SIZE);
@@ -51,6 +61,23 @@ package breath {
                 } else if(layer.name == 'safezone') {
                     safezone_map.loadMap(layer.tiles, AutoTiles, TILE_SIZE, TILE_SIZE);
                 }
+            }
+
+            // Object groups
+            for each(var objectgroup:Object in map.objectgroups) {
+                    if(objectgroup.name == 'airbubbles') {
+                        for each(var obj:Object in objectgroup.objects) {
+                                var bubble_id:String = obj.name.split('-')[1];
+
+                                if(obj.type == 'restore') {
+                                    airbubble_restore_points[bubble_id] = new FlxPoint(obj.x, obj.y);
+                                } else if(obj.type == 'enter') {
+                                    // Just use a generic FlxObject here since all we're doing with
+                                    // entrances is checking overlaps.
+                                    airbubble_entrances[bubble_id] = new FlxObject(obj.x, obj.y, obj.width, obj.height);
+                                }
+                            }
+                    }
             }
         }
     }

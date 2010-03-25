@@ -21,7 +21,8 @@ def tmx_to_json(source_path, output_path):
         map_data[map_prop_dict['name']] = map_prop_dict['value']
 
     map_data['layers'] = []
-        
+
+    # parse tile layers
     for layer in dom.getElementsByTagName('layer'):
         layer_dict = dict(layer.attributes.items())
         
@@ -43,6 +44,18 @@ def tmx_to_json(source_path, output_path):
             else:
                 layer_dict['tiles'] += ","
         map_data['layers'].append(layer_dict)
+
+    # parse object groups
+    map_data['objectgroups'] = []
+    for objectgroup in dom.getElementsByTagName('objectgroup'):
+        objectgroup_dict = dict(objectgroup.attributes.items())
+        objectgroup_dict['objects'] = []
+        
+        for obj in objectgroup.getElementsByTagName('object'):
+            obj_dict = dict(obj.attributes.items())
+            objectgroup_dict['objects'].append(obj_dict)
+            
+        map_data['objectgroups'].append(objectgroup_dict)
 
     if os.path.exists(output_path):
         os.remove(output_path)

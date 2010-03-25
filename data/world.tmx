@@ -10007,7 +10007,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="walls" width="100" height="100">
+ <layer name="walls" width="100" height="100" visible="0">
   <data>
    <tile gid="2"/>
    <tile gid="0"/>
@@ -22656,10 +22656,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -30015,8 +30015,9 @@
    <tile gid="0"/>
   </data>
  </layer>
- <objectgroup name="airbubbles" width="100" height="100">
+ <objectgroup name="airbubbles" width="100" height="100" visible="0">
   <object name="enter-1" type="enter" x="327" y="185" width="53" height="31"/>
   <object name="restore-1" type="restore" x="268" y="195" width="63" height="16"/>
+  <object name="" x="7" y="126"/>
  </objectgroup>
 </map>

@@ -6,7 +6,8 @@ package breath {
         private var PlayerImage:Class;
 
         public var gravity_on:Boolean = true;
-        public var in_water:Boolean = false;        
+        public var in_water:Boolean = false;
+        public var push_up:Boolean = false;        
         private var _move_speed:int;
         
         public function Player(X:Number, Y:Number):void {
@@ -32,6 +33,10 @@ package breath {
             } else {
                 acceleration.y = 0;
                 drag.x = drag.y = 300;
+            }
+
+            if(push_up) {
+                acceleration.y = -40;
             }
 
             if(FlxG.keys.LEFT) {

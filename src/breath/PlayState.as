@@ -4,37 +4,33 @@ package breath {
     public class PlayState extends FlxState {
         [Embed(source="/../data/autotiles.png")]
         private var AutoTiles:Class;
-        [Embed(source="/../data/walls_map.png")]
-        private var WallsMap:Class;
-        
-        private var walls_map:FlxTilemap;
-        private var walls_group:FlxGroup;
 
+        private var world:World;
         private var player:Player;
 
-        public static var TILE_SIZE:int = 8;
-        
         override public function create():void {
-            walls_group = new FlxGroup;
-            this.add(walls_group);
+            world = new World();
             
-            walls_map = new FlxTilemap;
-            walls_map.auto = FlxTilemap.AUTO;
-            walls_map.loadMap(FlxTilemap.pngToCSV(WallsMap), AutoTiles, 8, 8);
-
-            walls_group.add(walls_map);
-
-            player = new Player(94 * TILE_SIZE, 30 * TILE_SIZE);
+            this.add(world.walls_map);
+            this.add(world.water_map);
+            
+            player = new Player(4 * World.TILE_SIZE, 9 * World.TILE_SIZE);
             
             this.add(player);
 
-            walls_map.follow();
+            world.walls_map.follow();
             FlxG.followAdjust(0.5, 0.5);
             FlxG.follow(player, 2.5);
         }
 
         override public function update():void {
-            walls_map.collide(player);
+            world.walls_map.collide(player);
+
+            if(world.water_map.overlaps(player)) {
+                player.gravity_on = false;
+            } else {
+                player.gravity_on = true;
+            }
             
             super.update();
         }

@@ -5,7 +5,7 @@ package breath {
         [Embed(source='/../data/bird_player_image.png')]
         private var PlayerImage:Class;
 
-        private var gravity_on:Boolean = true;
+        public var gravity_on:Boolean = true;
         private var _move_speed:int;
         
         public function Player(X:Number, Y:Number):void {
@@ -24,8 +24,11 @@ package breath {
         override public function update():void {
             if(gravity_on) {
                 acceleration.y = 420;
+                drag.x = 500;
+                drag.y = 0;
             } else {
                 acceleration.y = 0;
+                drag.x = drag.y = 300;
             }
 
             if(FlxG.keys.LEFT) {
@@ -35,7 +38,14 @@ package breath {
                 facing = RIGHT;
                 velocity.x += _move_speed * FlxG.elapsed;                
             }
-            
+
+            if(!gravity_on) {
+                if(FlxG.keys.UP) {
+                    velocity.y -= _move_speed * FlxG.elapsed;
+                } else if(FlxG.keys.DOWN) {
+                    velocity.y += _move_speed * FlxG.elapsed;                
+                }
+            }            
             super.update();
         }
     }

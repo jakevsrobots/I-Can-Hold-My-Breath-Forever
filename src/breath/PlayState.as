@@ -8,11 +8,15 @@ package breath {
         private var world:World;
         private var player:Player;
 
-        public var restore_point_id:String = '0';
+        private var restore_point_id:String = '0';
+
+        private var oxygen_timer:Number = 10.0;
+        private var oxygen_timer_display:FlxText;
+        private var darkness:FlxSprite;
         
         override public function create():void {
             world = new World();
-            
+
             this.add(world.walls_map);
             this.add(world.water_map);
             
@@ -20,6 +24,17 @@ package breath {
             
             this.add(player);
 
+            darkness = new FlxSprite(0, 0, FlxG.width, FlxG.height);
+            darkness.createGraphic(FlxG.width, FlxG.height, 0xff000000);
+            darkness.alpha = 0.0;
+            
+            oxygen_timer_display = new FlxText(0, 20, FlxG.width, '10');
+            oxygen_timer_display.setFormat(null, 76, 0xffffff, 'center');
+            oxygen_timer_display.alpha = 0.0;
+            oxygen_timer_display.scrollFactor.x = oxygen_timer_display.scrollFactor.y = 0;
+            
+            this.add(oxygen_timer_display);
+            
             world.walls_map.follow();
             FlxG.followAdjust(0.5, 0.5);
             FlxG.follow(player, 2.5);
@@ -54,6 +69,23 @@ package breath {
                         restore_point_id = bubble_id;
                     }
             }
+
+            // Check oxygen level & update label
+            if(player.in_water) {
+                oxygen_timer_display.text = String(uint(oxygen_timer));
+                oxygen_timer_display.alpha = 1.0 - (oxygen_timer / 10.0);
+                darkness.alpha = oxygen_timer / 10.0;
+                oxygen_timer -= FlxG.elapsed;
+
+                if(oxygen_timer < 0.0) {
+                    oxygen_timer = 0.0;
+                }
+            } else {
+                oxygen_timer = 10.0;
+            }
+
+            FlxG.log('oxygen timer: ' + oxygen_timer);
+            
             
             super.update();
         }

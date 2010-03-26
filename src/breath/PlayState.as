@@ -17,6 +17,8 @@ package breath {
         private var player_dead:Boolean = false;
         private var player_death_length:Number = 1.0;
         private var player_death_timer:Number = 0.0;
+
+        private var story_overlay:StoryOverlay;
         
         override public function create():void {
             world = new World();
@@ -41,6 +43,9 @@ package breath {
             oxygen_timer_display.scrollFactor.x = oxygen_timer_display.scrollFactor.y = 0;
             
             this.add(oxygen_timer_display);
+
+            story_overlay = new StoryOverlay(16, 2);
+            this.add(story_overlay);
             
             world.walls_map.follow();
             FlxG.followAdjust(0.5, 0.5);
@@ -91,6 +96,22 @@ package breath {
                     }
             }
 
+            // Check story points
+            for(var restore_point_id:String in world.airbubble_restore_points) {
+                var restore_point:FlxPoint = world.airbubble_restore_points[restore_point_id];
+                
+                if(player.overlapsPoint(restore_point.x, restore_point.y)) {
+                    if(world.stories.hasOwnProperty(restore_point_id)) {
+                        trace(world.stories[restore_point_id]);
+                        story_overlay.showText(world.stories[restore_point_id]);
+                    } else {
+                        trace('no story');
+                    }
+                } else {
+                    trace('NO', player.x, player.y, '|', restore_point.x, restore_point.y);
+                }
+            }
+            
             // Check oxygen level & update label
             if(player.in_water) {
                 oxygen_timer_display.text = String(uint(Math.ceil(oxygen_timer)));

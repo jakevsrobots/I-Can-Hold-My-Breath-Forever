@@ -22,6 +22,8 @@ package breath {
 
         public var airbubble_entrances:Dictionary;
         public var airbubble_restore_points:Dictionary;
+
+        public var stories:Dictionary;
         
         public function World():void {
             walls_map = new FlxTilemap;
@@ -44,7 +46,7 @@ package breath {
             safezone_map.auto = FlxTilemap.AUTO;
 
             airbubble_entrances = new Dictionary;
-            airbubble_restore_points = new Dictionary;            
+            airbubble_restore_points = new Dictionary;
             
             var map:Object = JSON.decode(new MapJSON);
 
@@ -79,6 +81,10 @@ package breath {
                             }
                     }
             }
+
+            // Stories
+            stories = new Dictionary;
+            stories['1'] = 'Once there were two bird friends. One bird said "I Can Hold My Breath Forever," and dove into the water. The other bird followed.';
         }
     }
 }

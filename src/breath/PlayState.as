@@ -31,8 +31,8 @@ package breath {
 
             this.add(darkness);
             
-            oxygen_timer_display = new FlxText(0, 20, FlxG.width, '10');
-            oxygen_timer_display.setFormat(null, 76, 0xffffff, 'center');
+            oxygen_timer_display = new FlxText(0, 0, FlxG.width, '10');
+            oxygen_timer_display.setFormat(null, 144, 0xffffff, 'center');
             oxygen_timer_display.alpha = 0.0;
             oxygen_timer_display.scrollFactor.x = oxygen_timer_display.scrollFactor.y = 0;
             
@@ -78,26 +78,39 @@ package breath {
                 oxygen_timer_display.text = String(uint(Math.ceil(oxygen_timer)));
                 oxygen_timer_display.alpha = 1.0 - (oxygen_timer / 10.0);
                 
-                /*
-                if(oxygen_timer_display.alpha < 0.1) {
-                    oxygen_timer_display.alpha = 0.1;
-                    }*/
-                
                 darkness.alpha = Math.pow(1.0 - (oxygen_timer / 10.0), 2);
+
+                var max_overlay_alpha:Number = 0.8;
+                
+                if(darkness.alpha > max_overlay_alpha) {
+                    darkness.alpha = max_overlay_alpha;
+                }
+
+                if(oxygen_timer_display.alpha > max_overlay_alpha) {
+                    oxygen_timer_display.alpha = max_overlay_alpha;
+                }
                 
                 oxygen_timer -= FlxG.elapsed;
 
                 if(oxygen_timer < 0.0) {
                     oxygen_timer = 0.0;
+                    kill_player();
                 }
             } else {
                 oxygen_timer = 10.0;
+                darkness.alpha = 0;
+                oxygen_timer_display.alpha = 0;
             }
 
-            FlxG.log('oxygen timer: ' + oxygen_timer);
-            
-            
+            //FlxG.log('oxygen timer: ' + oxygen_timer);
             super.update();
+        }
+
+        private function kill_player():void {
+            // The player has drowned; move them back to the last restore point
+            var restore_point:FlxPoint = world.airbubble_restore_points[restore_point_id];
+            player.x = restore_point.x;
+            player.y = restore_point.y;
         }
     }
 }

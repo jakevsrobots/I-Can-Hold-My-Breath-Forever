@@ -8,7 +8,7 @@ package breath {
         private var world:World;
         private var player:Player;
 
-        private var restore_point_id:String = '0';
+        private var saved_restore_point:String = '0';
 
         private var oxygen_timer:Number = 10.0;
         private var oxygen_timer_display:FlxText;
@@ -92,7 +92,10 @@ package breath {
             for(var bubble_id:String in world.airbubble_entrances) {
                 var air_bubble_entrance:FlxObject = world.airbubble_entrances[bubble_id];
                     if(air_bubble_entrance.overlaps(player)) {
-                        restore_point_id = bubble_id;
+                        if(bubble_id != saved_restore_point) {
+                            FlxG.log('udpating restore point ' + bubble_id);
+                            saved_restore_point = bubble_id;
+                        }
                     }
             }
 
@@ -102,13 +105,9 @@ package breath {
                 
                 if(player.overlapsPoint(restore_point.x, restore_point.y)) {
                     if(world.stories.hasOwnProperty(restore_point_id)) {
-                        trace(world.stories[restore_point_id]);
+                        //FlxG.log(world.stories[restore_point_id]);
                         story_overlay.showText(world.stories[restore_point_id]);
-                    } else {
-                        trace('no story');
                     }
-                } else {
-                    trace('NO', player.x, player.y, '|', restore_point.x, restore_point.y);
                 }
             }
             
@@ -147,7 +146,9 @@ package breath {
 
         private function kill_player():void {
             // The player has drowned; move them back to the last restore point
-            var restore_point:FlxPoint = world.airbubble_restore_points[restore_point_id];
+            var restore_point:FlxPoint = world.airbubble_restore_points[saved_restore_point];
+            FlxG.log('moving to ' + saved_restore_point + ' at ' + restore_point.x + ',' + restore_point.y);
+            
             player.x = restore_point.x;
             player.y = restore_point.y;
             player.velocity.x = player.velocity.y = 0;

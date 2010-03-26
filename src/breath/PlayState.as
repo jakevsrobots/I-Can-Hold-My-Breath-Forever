@@ -13,6 +13,10 @@ package breath {
         private var oxygen_timer:Number = 10.0;
         private var oxygen_timer_display:FlxText;
         private var darkness:FlxSprite;
+
+        private var player_dead:Boolean = false;
+        private var player_death_length:Number = 1.0;
+        private var player_death_timer:Number = 0.0;
         
         override public function create():void {
             world = new World();
@@ -32,7 +36,7 @@ package breath {
             this.add(darkness);
             
             oxygen_timer_display = new FlxText(0, 0, FlxG.width, '10');
-            oxygen_timer_display.setFormat(null, 144, 0xffffff, 'center');
+            oxygen_timer_display.setFormat(null, 160, 0xffffff, 'center');
             oxygen_timer_display.alpha = 0.0;
             oxygen_timer_display.scrollFactor.x = oxygen_timer_display.scrollFactor.y = 0;
             
@@ -44,6 +48,16 @@ package breath {
         }
 
         override public function update():void {
+            if(player_dead) {
+                player_death_timer -= FlxG.elapsed;
+                
+                if(player_death_timer <= 0.0) {
+                    player_dead = false;
+                }
+                
+                super.update();
+                return;
+            }
             world.walls_map.collide(player);
 
             if(world.water_map.overlaps(player)) {
@@ -80,7 +94,7 @@ package breath {
                 
                 darkness.alpha = Math.pow(1.0 - (oxygen_timer / 10.0), 2);
 
-                var max_overlay_alpha:Number = 0.8;
+                var max_overlay_alpha:Number = 0.9;
                 
                 if(darkness.alpha > max_overlay_alpha) {
                     darkness.alpha = max_overlay_alpha;
@@ -111,6 +125,16 @@ package breath {
             var restore_point:FlxPoint = world.airbubble_restore_points[restore_point_id];
             player.x = restore_point.x;
             player.y = restore_point.y;
+
+            // Re-set the 'death' timer which holds the blackout & countdown
+            // for a couple seconds.
+            player_dead = true;
+            player_death_timer = player_death_length;
+
+            // Complete blackout
+            oxygen_timer_display.text = '0';
+            darkness.alpha = 1.0;
+            oxygen_timer_display.alpha = 1.0;
         }
     }
 }

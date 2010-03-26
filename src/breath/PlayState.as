@@ -54,6 +54,10 @@ package breath {
                 if(player_death_timer <= 0.0) {
                     player_dead = false;
                 }
+
+                // Halt the player so they can't hold an arrow button
+                // down & end up outside a wall
+                player.velocity.x = player.velocity.y = 0;
                 
                 super.update();
                 return;
@@ -125,7 +129,8 @@ package breath {
             var restore_point:FlxPoint = world.airbubble_restore_points[restore_point_id];
             player.x = restore_point.x;
             player.y = restore_point.y;
-
+            player.velocity.x = player.velocity.y = 0;
+            
             // Re-set the 'death' timer which holds the blackout & countdown
             // for a couple seconds.
             player_dead = true;

@@ -19,12 +19,21 @@ package breath {
         private var player_death_timer:Number = 0.0;
 
         private var story_overlay:StoryOverlay;
+        private var lamp_posts:FlxGroup;
         
         override public function create():void {
             world = new World();
 
             this.add(world.walls_map);
             this.add(world.water_map);
+
+            // Add restore point sprites
+            lamp_posts = new FlxGroup;
+            for each(var lamp_post:RestorePoint in world.airbubble_restore_points) {
+                lamp_posts.add(lamp_post);
+            }
+
+            this.add(lamp_posts);
             
             player = new Player(4 * World.TILE_SIZE, 9 * World.TILE_SIZE);
             
@@ -93,7 +102,7 @@ package breath {
                 var air_bubble_entrance:FlxObject = world.airbubble_entrances[bubble_id];
                     if(air_bubble_entrance.overlaps(player)) {
                         if(bubble_id != saved_restore_point) {
-                            FlxG.log('udpating restore point ' + bubble_id);
+                            FlxG.log('updating restore point ' + bubble_id);
                             saved_restore_point = bubble_id;
                         }
                     }
@@ -101,11 +110,10 @@ package breath {
 
             // Check story points
             for(var restore_point_id:String in world.airbubble_restore_points) {
-                var restore_point:FlxPoint = world.airbubble_restore_points[restore_point_id];
+                var restore_point:RestorePoint = world.airbubble_restore_points[restore_point_id];
                 
-                if(player.overlapsPoint(restore_point.x, restore_point.y)) {
+                if(player.overlaps(restore_point)) {
                     if(world.stories.hasOwnProperty(restore_point_id)) {
-                        //FlxG.log(world.stories[restore_point_id]);
                         story_overlay.showText(world.stories[restore_point_id]);
                     }
                 }

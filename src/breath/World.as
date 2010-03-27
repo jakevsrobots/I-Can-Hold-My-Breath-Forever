@@ -12,7 +12,7 @@ package breath {
         private var AutoTiles:Class;
         [Embed(source="/../data/water-autotiles.png")]
         private var WaterAutoTiles:Class;
-
+        
         public static var TILE_SIZE:int = 8;
         public var walls_map:FlxTilemap;
         public var water_map:FlxTilemap;
@@ -22,7 +22,7 @@ package breath {
 
         public var airbubble_entrances:Dictionary;
         public var airbubble_restore_points:Dictionary;
-
+        
         public var stories:Dictionary;
         
         public function World():void {
@@ -72,7 +72,7 @@ package breath {
                                 var bubble_id:String = obj.name.split('-')[1];
 
                                 if(obj.type == 'restore') {
-                                    airbubble_restore_points[bubble_id] = new FlxPoint(obj.x, obj.y);
+                                    airbubble_restore_points[bubble_id] = new RestorePoint(obj.x, obj.y);
                                 } else if(obj.type == 'enter') {
                                     // Just use a generic FlxObject here since all we're doing with
                                     // entrances is checking overlaps.
@@ -84,7 +84,9 @@ package breath {
 
             // Stories
             stories = new Dictionary;
-            stories['1'] = 'Once there were two bird friends. One bird said "I Can Hold My Breath Forever," and dove into the water. The other bird followed.';
+            //stories['0'] = 'Text test';
+            stories['0'] = 'There were two friends. One said "I Can Hold My Breath Forever," and dove into the water.';            
+            stories['1'] = 'There were two friends. One said "I Can Hold My Breath Forever," and dove into the water.';
         }
     }
 }

@@ -84,9 +84,11 @@ package breath {
 
             // Stories
             stories = new Dictionary;
-            //stories['0'] = 'Text test';
-            stories['0'] = 'There were two friends. One said "I Can Hold My Breath Forever," and dove into the water.';            
-            stories['1'] = 'There were two friends. One said "I Can Hold My Breath Forever," and dove into the water.';
+            stories['0'] = 'There were two friends. One said "I Can Hold My Breath Forever," and dove into a small pond.';
+            stories['1'] = 'After a while, the other friend followed.';
+            stories['2'] = 'The small pond concealed a network of underwater tunnels and caves.';
+            stories['3'] = 'Many of the caves and tunnels seemed to be carved out of the rock deliberately.';
+            stories['4'] = "It would be quite easy to lose one's way in these dark tunnels and never be heard of again.";
         }
     }
 }

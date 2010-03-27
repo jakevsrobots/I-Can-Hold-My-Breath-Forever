@@ -14,8 +14,8 @@ package breath {
             super(X,Y);
             this.loadGraphic(PlayerImage, true, true);
 
-            maxVelocity.x = 200;
-            maxVelocity.y = 200;
+            maxVelocity.x = 140;
+            maxVelocity.y = 140;
 
             _move_speed = 700;
             drag.x = 500;

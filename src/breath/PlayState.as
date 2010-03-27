@@ -4,6 +4,8 @@ package breath {
     public class PlayState extends FlxState {
         [Embed(source="/../data/autotiles.png")]
         private var AutoTiles:Class;
+        [Embed(source="/../data/world-background.png")]
+        private var BackgroundImage:Class;
 
         private var world:World;
         private var player:Player;
@@ -20,6 +22,8 @@ package breath {
 
         private var story_overlay:StoryOverlay;
         private var lamp_posts:FlxGroup;
+
+        private var background:FlxSprite;
         
         override public function create():void {
             world = new World();
@@ -27,6 +31,9 @@ package breath {
             this.add(world.walls_map);
             this.add(world.water_map);
 
+            //background = new FlxSprite(0,0,BackgroundImage);
+            //this.add(background);
+            
             // Add restore point sprites
             lamp_posts = new FlxGroup;
             for each(var lamp_post:RestorePoint in world.airbubble_restore_points) {
@@ -61,7 +68,29 @@ package breath {
             FlxG.follow(player, 2.5);
         }
 
+        // For testing, skip ahead to the next restore point.
+        public function skip_ahead():void {
+            var next_point:String = String(parseInt(saved_restore_point) + 1);
+
+            if(!world.airbubble_restore_points.hasOwnProperty(next_point)) {
+                next_point = '0';
+            }
+            
+            var restore_point:FlxPoint = world.airbubble_restore_points[next_point];
+            saved_restore_point = next_point;
+                
+            player.x = restore_point.x;
+            player.y = restore_point.y;
+
+        }
+        
         override public function update():void {
+            if(FlxG.keys.justPressed('N')) {
+                skip_ahead();
+                super.update();
+                return;
+            }
+            
             if(player_dead) {
                 player_death_timer -= FlxG.elapsed;
                 
@@ -102,7 +131,7 @@ package breath {
                 var air_bubble_entrance:FlxObject = world.airbubble_entrances[bubble_id];
                     if(air_bubble_entrance.overlaps(player)) {
                         if(bubble_id != saved_restore_point) {
-                            FlxG.log('updating restore point ' + bubble_id);
+                            //FlxG.log('updating restore point ' + bubble_id);
                             saved_restore_point = bubble_id;
                         }
                     }

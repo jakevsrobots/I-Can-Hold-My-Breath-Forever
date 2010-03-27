@@ -88,7 +88,10 @@ package breath {
             stories['1'] = 'After a while, the other friend followed.';
             stories['2'] = 'The small pond concealed a network of underwater tunnels and caves.';
             stories['3'] = 'Many of the caves and tunnels seemed to be carved out of the rock deliberately.';
-            stories['4'] = "It would be quite easy to lose one's way in these dark tunnels and never be heard of again.";
+            stories['4'] = 'It was so oppressively dark and close in the underwater tunnels; each cave was like an oasis despite the cold, stale air.';
+            stories['5'] = "One could have easily lost one's way in these dark tunnels and never be heard of again.";
+            stories['6'] = 'Who would carve tunnels so confusing and mazelike, and why?';
+            stories['7'] = 'Was it really all natural?';
         }
     }
 }

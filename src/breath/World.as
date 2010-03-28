@@ -92,6 +92,8 @@ package breath {
             stories['5'] = "One could have easily lost one's way in these dark tunnels and never be heard of again.";
             stories['6'] = 'Who would carve tunnels so confusing and mazelike, and why?';
             stories['7'] = 'Was it really all natural?';
+            stories['8'] = "Water shouldn't have behaved this way...";
+            stories['9'] = 'It was a large, beautiful cavern. Surely if one were to come across this cavern they would stop and wait for their friend to share the experience...';
         }
     }
 }

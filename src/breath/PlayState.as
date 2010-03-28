@@ -131,7 +131,7 @@ package breath {
                 var air_bubble_entrance:FlxObject = world.airbubble_entrances[bubble_id];
                     if(air_bubble_entrance.overlaps(player)) {
                         if(bubble_id != saved_restore_point) {
-                            //FlxG.log('updating restore point ' + bubble_id);
+                            FlxG.log('updating restore point ' + bubble_id);
                             saved_restore_point = bubble_id;
                         }
                     }

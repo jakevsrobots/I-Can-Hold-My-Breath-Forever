@@ -68,7 +68,7 @@ package breath {
             //this.add(world.walls_map);
             //this.add(world.water_map);
             this.add(world.firefish_group);
-
+            
             this.add(notes);
             this.add(player);
             this.add(world_darkness);

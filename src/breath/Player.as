@@ -4,6 +4,8 @@ package breath {
     public class Player extends FlxSprite {
         [Embed(source='/../data/bird_player_image.png')]
         private var PlayerImage:Class;
+        [Embed(source='/../data/newplayer.png')]
+        private var NewPlayerImage:Class;
         [Embed(source="/../data/glow-light.png")]
         private var GlowImage:Class;
 
@@ -25,7 +27,7 @@ package breath {
             glow.alpha = 1;
             glow.blend = "screen";
             
-            this.loadGraphic(PlayerImage, true, true);
+            this.loadGraphic(NewPlayerImage, true, true);
 
             maxVelocity.x = 140;
             maxVelocity.y = 140;
@@ -33,6 +35,11 @@ package breath {
             _move_speed = 700;
             drag.x = 500;
 
+            addAnimation("walk", [0,1,2,3], 12);
+            addAnimation("stopped", [9]);
+            addAnimation("jump", [2,3,4],2);
+            addAnimation("mid-air",[4]);
+            
             width = 4;
             offset.x = 6;
         }
@@ -73,6 +80,12 @@ package breath {
                 alpha = 0.7;
             } else {
                 alpha = 1.0;
+            }
+
+            if(velocity.x != 0 || velocity.y < 0) {
+                play("walk");
+            } else {
+                play("stopped");
             }
             
             super.update();

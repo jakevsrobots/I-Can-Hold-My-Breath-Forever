@@ -2,7 +2,10 @@ package breath {
     import org.flixel.*;
 
     public class StoryOverlay extends FlxGroup {
-        private var text:FlxText;
+        [Embed(source='/../data/gardenia.ttf', fontFamily='gardenia')]
+        private var GardeniaFont:String;
+        
+        private var text:MyText;
 
         // The number of seconds to hold the text before it starts to fade.
         private var text_lifespan:Number = 2.0;
@@ -16,7 +19,8 @@ package breath {
 
             this.scrollFactor.x = this.scrollFactor.y = 0;
             
-            text = new FlxText(4, 4, 260, ' ');
+            text = new MyText(4, 4, 280, ' ');
+            text.setFormatExtended("gardenia", 8, 0xffffffff, null, 0, -5);
             add(text, true);
 
             text.alpha = 0;

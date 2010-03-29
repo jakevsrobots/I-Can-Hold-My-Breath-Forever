@@ -113,7 +113,15 @@ package breath {
             stories['8'] = "My dear friend,\nI stopped here, and waited for you. I wonder: now that you're reading this, you must be quite deep in these caves. I've been here for months... Does it feel like home to you?";
             stories['9'] = "My dear friend,\nWhat an enormous, beautiful cavern! I wish I could wait here longer, but I must press on. How are you stomaching the pressure? Sometimes I shout questions and pretend the echoes are your answers.";
             stories['10'] = "My dear friend,\nI'm sure you've noticed the strange behavior of the water down here. At this depth, water and air interact like two mortal enemies, repelling one another into the strangest configurations.";
-            stories['11'] = "My dear friend,\n ";
+            stories['11'] = "";
+            stories['12'] = "";
+            stories['13'] = "";
+            stories['14'] = "";
+            stories['15'] = "";
+            stories['16'] = "";
+            stories['17'] = "";
+            stories['18'] = "";
+            stories['endgame'] = "";            
             
             // old stories
             /*

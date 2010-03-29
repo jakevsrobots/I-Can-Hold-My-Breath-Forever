@@ -12,6 +12,10 @@ package breath {
 
         public var glow:FlxSprite;
         public var darkness:FlxSprite;        
+
+        public var player:Player;
+
+        private var display_test_point:FlxPoint;
         
         public function Firefish(X:uint, Y:uint, darkness:FlxSprite):void {
             super(X, Y);
@@ -33,6 +37,8 @@ package breath {
             
             maxVelocity.x = maxVelocity.y = 200;
 
+            display_test_point = new FlxPoint;
+            
             get_new_destination();
             
             drag.x = drag.y = 100;
@@ -61,7 +67,16 @@ package breath {
         }
 
         override public function render():void {
-            var firefly_point:FlxPoint = new FlxPoint;
+            getScreenXY(display_test_point);
+
+            if(display_test_point.x > FlxG.width * 2 ||
+                display_test_point.x < -FlxG.width ||
+                display_test_point.y > FlxG.height * 2 ||
+                display_test_point.y < -FlxG.height) {
+                return;
+           }
+           
+           var firefly_point:FlxPoint = new FlxPoint;
             
             getScreenXY(firefly_point);
 

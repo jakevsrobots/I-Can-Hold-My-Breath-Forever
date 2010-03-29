@@ -21,7 +21,7 @@ package breath {
         private var player_death_timer:Number = 0.0;
 
         private var story_overlay:StoryOverlay;
-        private var lamp_posts:FlxGroup;
+        private var notes:FlxGroup;
 
         private var background:FlxSprite;
         
@@ -33,14 +33,16 @@ package breath {
 
             //background = new FlxSprite(0,0,BackgroundImage);
             //this.add(background);
+
+            this.add(world.firefish_group);
             
             // Add restore point sprites
-            lamp_posts = new FlxGroup;
-            for each(var lamp_post:RestorePoint in world.airbubble_restore_points) {
-                lamp_posts.add(lamp_post);
+            notes = new FlxGroup;
+            for each(var note:RestorePoint in world.airbubble_restore_points) {
+                notes.add(note);
             }
 
-            this.add(lamp_posts);
+            this.add(notes);
             
             player = new Player(4 * World.TILE_SIZE, 9 * World.TILE_SIZE);
             

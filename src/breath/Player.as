@@ -4,14 +4,27 @@ package breath {
     public class Player extends FlxSprite {
         [Embed(source='/../data/bird_player_image.png')]
         private var PlayerImage:Class;
+        [Embed(source="/../data/glow-light.png")]
+        private var GlowImage:Class;
 
         public var gravity_on:Boolean = true;
         public var in_water:Boolean = false;
         public var push_up:Boolean = false;        
         private var _move_speed:int;
+
+        public var glow:FlxSprite;
+        public var darkness:FlxSprite;        
         
-        public function Player(X:Number, Y:Number):void {
+        public function Player(X:Number, Y:Number, darkness:FlxSprite):void {
             super(X,Y);
+
+            this.darkness = darkness;
+        
+            glow = new FlxSprite(X,Y,GlowImage);
+            glow.scale = new FlxPoint(4,4);
+            glow.alpha = 1;
+            glow.blend = "screen";
+            
             this.loadGraphic(PlayerImage, true, true);
 
             maxVelocity.x = 140;
@@ -64,5 +77,20 @@ package breath {
             
             super.update();
         }
+
+        override public function render():void {
+            var firefly_point:FlxPoint = new FlxPoint;
+            
+            getScreenXY(firefly_point);
+
+            darkness.draw(
+                glow,
+                firefly_point.x - (glow.width / 2),
+                firefly_point.y - (glow.height/ 2)
+            );
+
+            super.render();
+        }
+        
     }
 }

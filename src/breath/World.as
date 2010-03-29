@@ -75,6 +75,10 @@ package breath {
 
                                 if(obj.type == 'restore') {
                                     airbubble_restore_points[bubble_id] = new RestorePoint(obj.x, obj.y);
+                                    if(obj.hasOwnProperty('no-note')) {
+                                        FlxG.log('no note ' + bubble_id);
+                                        airbubble_restore_points[bubble_id].note = false;
+                                    }
                                 } else if(obj.type == 'enter') {
                                     // Just use a generic FlxObject here since all we're doing with
                                     // entrances is checking overlaps.
@@ -84,14 +88,12 @@ package breath {
                     } else if(objectgroup.name == 'firefish') {
                         firefish_group = new FlxGroup;
 
-                        trace('fish group');
-                        
                         for each(var fish_obj:Object in objectgroup.objects) {
-                            trace('fish', fish_obj.x, fish_obj.y);
                             firefish_group.add(
                                 new Firefish(
                                     fish_obj.x - (fish_obj.x % World.TILE_SIZE),
-                                    fish_obj.y - (fish_obj.y % World.TILE_SIZE)
+                                    fish_obj.y - (fish_obj.y % World.TILE_SIZE),
+                                    PlayState.world_darkness
                                 )
                             );
                         }
@@ -106,7 +108,7 @@ package breath {
             stories['3'] = "My dear friend,\nThis tunnel seems to be a dead end; I will backtrack a bit and then dive deeper downward. How deep and dark this cave must be!";
             stories['4'] = "My dear friend,\nDo you remember the small green fish we used to catch in this pond? They must prefer the shallow water, I don't see them at this depth.";
             stories['5'] = "My dear friend,\nIt's been hours now, my friend. I wonder if you're just behind me; I know moving through these caves must be a bit slower with your limitations...";
-            stories['6'] = "My dear friend,\nOut of the corner of my eye I saw something move back here and thought it might be you, my friend; maybe you had somehow outperformed me in navigating this darkness! But it was just one of those glowing fish.";
+            stories['6'] = "My dear friend,\nOut of the corner of my eye I saw something move back here and thought it might be you; maybe you had somehow outperformed me in navigating this darkness! But it was just one of those glowing fish.";
             stories['7'] = "My dear friend,\nIt's so dark here. You never could see well in the dark. That, and you never could hold your breath for long. At most, what, nine seconds? Ten?";
             stories['8'] = "My dear friend,\nI stopped here, and waited for you. I wonder: now that you're reading this, you must be quite deep in these caves. I've been here for months... Does it feel like home to you?";
             stories['9'] = "My dear friend,\nWhat an enormous, beautiful cavern! I wish I could wait here longer, but I must press on. How are you stomaching the pressure? Sometimes I shout questions and pretend the echoes are your answers.";

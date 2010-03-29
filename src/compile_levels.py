@@ -54,6 +54,9 @@ def tmx_to_json(source_path, output_path):
         for obj in objectgroup.getElementsByTagName('object'):
             obj_dict = dict(obj.attributes.items())
             objectgroup_dict['objects'].append(obj_dict)
+            for prop in obj.getElementsByTagName('property'):
+                prop_dict = dict(prop.attributes.items())
+                obj_dict[prop_dict['name']] = prop_dict['value']
             
         map_data['objectgroups'].append(objectgroup_dict)
 

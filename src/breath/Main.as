@@ -1,7 +1,7 @@
 package breath {
     import org.flixel.*;
     
-    [SWF(width="640", height="420", backgroundColor="#ffffff")];
+    [SWF(width="640", height="320", backgroundColor="#ffffff")];
 
     public class Main extends FlxGame {
         //public static var bgcolor:uint = 0xff303030;

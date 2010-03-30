@@ -25,6 +25,9 @@ package breath {
             super(X, Y);
 
             loadGraphic(FishImage, false, true, 7, 4);
+
+            scale.x = scale.y = 0.2 + (Math.random() * 1.2);
+            alpha = 0.4 + (Math.random() * 0.6);
             
             start_point = new FlxPoint;
             destination = new FlxObject;

@@ -19,7 +19,7 @@ package breath {
 
             this.scrollFactor.x = this.scrollFactor.y = 0;
             
-            text = new MyText(4, 4, 280, ' ');
+            text = new MyText(4, 4, 290, ' ');
             text.setFormatExtended("gardenia", 8, 0xffffffff, null, 0, -5);
             add(text, true);
 

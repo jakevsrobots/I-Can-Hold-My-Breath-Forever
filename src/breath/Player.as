@@ -17,7 +17,7 @@ package breath {
         public var glow:FlxSprite;
         public var darkness:FlxSprite;        
 
-        public var won_game = false;
+        public var won_game:Boolean = false;
         
         public function Player(X:Number, Y:Number, darkness:FlxSprite):void {
             super(X,Y);

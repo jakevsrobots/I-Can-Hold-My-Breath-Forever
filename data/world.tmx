@@ -6521,10 +6521,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
    <tile gid="3"/>
    <tile gid="3"/>
-   <tile gid="0"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -7321,10 +7321,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
    <tile gid="3"/>
    <tile gid="3"/>
-   <tile gid="0"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -46324,12 +46324,12 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="2"/>
-   <tile gid="0"/>
+   <tile gid="2"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -46525,10 +46525,10 @@
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
-   <tile gid="2"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="2"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
@@ -47325,10 +47325,10 @@
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
-   <tile gid="2"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="2"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="2"/>
@@ -47524,12 +47524,12 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="2"/>
    <tile gid="2"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="2"/>
-   <tile gid="0"/>
+   <tile gid="2"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -120018,7 +120018,6 @@
  <objectgroup name="events" width="200" height="200">
   <object name="enter-1" type="enter" x="327" y="185" width="53" height="31"/>
   <object name="restore-1" type="restore" x="266" y="201" width="46" height="8"/>
-  <object name="enter-0" type="enter" x="15" y="7" width="76" height="84"/>
   <object name="restore-0" type="restore" x="77" y="76" width="63" height="10">
    <properties>
     <property name="no-note" value="1"/>
@@ -120057,9 +120056,9 @@
   <object name="enter-14" type="enter" x="1170" y="1080" width="56" height="143"/>
   <object name="restore-14" type="restore" x="1235" y="1197" width="61" height="17"/>
   <object name="enter-15" type="enter" x="1257" y="735" width="85" height="16"/>
-  <object name="restore-15" type="restore" x="1366" y="727" width="78" height="17"/>
+  <object name="restore-15" type="restore" x="1368" y="724" width="78" height="17"/>
   <object name="enter-16" type="enter" x="1244" y="1532" width="200" height="19"/>
-  <object name="restore-16" type="restore" x="1143" y="1518" width="47" height="13"/>
+  <object name="restore-16" type="restore" x="1145" y="1529" width="47" height="13"/>
   <object name="enter-17" type="enter" x="1524" y="669" width="52" height="22"/>
   <object name="restore-17" type="restore" x="1388" y="659" width="75" height="17"/>
   <object name="enter-18" type="enter" x="1210" y="143" width="77" height="17"/>
@@ -120185,5 +120184,56 @@
   <object name="" x="757" y="409" width="5" height="10"/>
   <object name="" x="811" y="458" width="8"/>
   <object name="" x="866" y="493" width="3"/>
+  <object name="" x="1156" y="1204" width="10" height="12"/>
+  <object name="" x="1196" y="1238"/>
+  <object name="" x="1224" y="1234" width="16" height="4"/>
+  <object name="" x="1162" y="1172" width="10" height="12"/>
+  <object name="" x="1152" y="1126" width="2" height="2"/>
+  <object name="" x="1162" y="1108" width="8" height="8"/>
+  <object name="" x="1166" y="1166" width="2"/>
+  <object name="" x="1160" y="1144" width="12" height="12"/>
+  <object name="" x="1148" y="1188" width="6" height="10"/>
+  <object name="" x="1178" y="1212" width="4" height="4"/>
+  <object name="" x="1168" y="1228" width="14" height="6"/>
+  <object name="" x="1202" y="1226" width="18" height="14"/>
+  <object name="" x="1252" y="1246" height="12"/>
+  <object name="" x="1156" y="1108" height="18"/>
+  <object name="" x="1142" y="1146" width="8" height="4"/>
+  <object name="" x="112" y="982" width="16" height="24"/>
+  <object name="" x="166" y="1024" width="14" height="8"/>
+  <object name="" x="298" y="990" width="10" height="8"/>
+  <object name="" x="370" y="982"/>
+  <object name="" x="138" y="778" height="6"/>
+  <object name="" x="262" y="1014" width="8" height="6"/>
+  <object name="" x="406" y="738" width="14" height="18"/>
+  <object name="" x="396" y="660" width="6" height="24"/>
+  <object name="" x="388" y="766" width="2" height="4"/>
+  <object name="" x="324" y="780" width="8"/>
+  <object name="" x="744" y="774" width="10" height="12"/>
+  <object name="" x="788" y="822" width="4" height="8"/>
+  <object name="" x="814" y="852" width="8" height="12"/>
+  <object name="" x="996" y="852" width="16" height="14"/>
+  <object name="" x="1082" y="870" width="10" height="6"/>
+  <object name="" x="1162" y="866" width="2" height="4"/>
+  <object name="" x="1046" y="920"/>
+  <object name="" x="1492" y="424" width="10" height="10"/>
+  <object name="" x="1398" y="458" width="2"/>
+  <object name="" x="1414" y="406" width="4" height="12"/>
+  <object name="" x="1476" y="448" width="2" height="6"/>
+  <object name="" x="1472" y="486" height="10"/>
+  <object name="" x="1422" y="506" width="2" height="10"/>
+  <object name="" x="1446" y="536" width="18" height="8"/>
+  <object name="" x="1492" y="544" width="8"/>
+  <object name="" x="1528" y="532" width="4"/>
+  <object name="" x="1546" y="480"/>
+  <object name="" x="1522" y="468"/>
+  <object name="" x="1498" y="480" height="20"/>
+  <object name="" x="1344" y="496"/>
+  <object name="" x="1452" y="476"/>
+  <object name="" x="1466" y="466" width="2"/>
+  <object name="" x="1482" y="472"/>
+  <object name="" x="1518" y="482" width="4" height="20"/>
+  <object name="" x="1506" y="506" height="34"/>
+  <object name="" x="1450" y="530"/>
  </objectgroup>
 </map>

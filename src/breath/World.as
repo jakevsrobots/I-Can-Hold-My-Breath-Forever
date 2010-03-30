@@ -82,7 +82,6 @@ package breath {
                                 if(obj.type == 'restore') {
                                     airbubble_restore_points[bubble_id] = new RestorePoint(obj.x, obj.y);
                                     if(obj.hasOwnProperty('no-note')) {
-                                        FlxG.log('no note ' + bubble_id);
                                         airbubble_restore_points[bubble_id].note = false;
                                     }
                                 } else if(obj.type == 'enter') {
@@ -90,11 +89,11 @@ package breath {
                                     // entrances is checking overlaps.
                                     airbubble_entrances[bubble_id] = new FlxObject(obj.x, obj.y, obj.width, obj.height);
                                 } else if(obj.type == 'darkness') {
-                                    trace('darkness init');
                                     darkness_init_area = new FlxObject(obj.x, obj.y, obj.width, obj.height);
                                 } else if(obj.type == 'endgame') {
                                     endgame_area = new FlxObject(obj.x, obj.y, obj.width, obj.height);
                                     octopus = new FlxSprite(parseInt(obj.x) + 120, parseInt(obj.y) + 120, OctopusImage);
+                                    octopus.alpha = 0.7;
                                 }
                             }
                     } else if(objectgroup.name == 'firefish') {
@@ -124,9 +123,9 @@ package breath {
             stories['5'] = "My dear friend,\nIt's been hours now! I wonder if you're just behind me. I know moving through these caves must be a bit slower with your limitations...";
             stories['6'] = "My dear friend,\nOut of the corner of my eye I saw something move back here and thought it might be you; maybe you had somehow passed me! But it was just one of those glowing fish.";
             stories['7'] = "My dear friend,\nIt's so dark here. I can't see well in the dark. And you can't hold your breath for long! It will be difficult for both of us.";
-            stories['8'] = "My dear friend,\nI stopped here for breakfast. I wonder: now that you're reading this, you must be quite deep in these caves. I've been here for months... Does it feel like bhome to you?";
+            stories['8'] = "My dear friend,\nI stopped here for breakfast. I wonder: now that you're reading this, you must be quite deep in these caves. I've been here for months... Does it feel like home to you?";
             stories['9'] = "My dear friend,\nWhat an enormous, beautiful cavern! How are you stomaching the pressure? Well, I have to go now!";
-            stories['10'] = "My dear friend,\nI'm sure you've noticed the strange behavior of the water down here. Down here, water and air are like two mortal enemies, pushing each other into the strangest positions.";
+            stories['10'] = "My dear friend,\nI'm sure you've noticed the strange behavior of the water... down here, water and air are always pushing each other into the strangest positions.";
             stories['11'] = "My dear friend,\nI stopped here to rest my eye and stretch. I was thinking of you and the meals we used to cook together. Soon I hope we will be making cave pies!";
             stories['12'] = "My dear friend,\nHas it really been a year? I was looking at that little leatherbound calendar you gave me and the realization just hit me. Oh how I hope you will catch up with me soon!";
             stories['13'] = "My dear friend,\nI am a bit embarrassed to tell you this: I just spent most of a week running in circles! These tunnels are so confusing. Well, time to press on.";
@@ -134,7 +133,7 @@ package breath {
             stories['15'] = "My dear friend,\nIt's a bit terrifying, isn't it? Such a long drop, I don't see how we could climb back. I've spent a month here already, just working up the courage...";
             stories['16'] = "My dear friend,\nThe pressure down here, what a headache! I have a tip: chew on some of the tough seaweed. I hope you find this note, some day.";
             stories['17'] = "My dear friend,\nI must be getting old; that climb took a lot out of me. I hope some day you will know what I mean.";
-            stories['18'] = "My dear friend,\nWhen we were children, I dove into a small pond. Now we are both very old, and it's time for me to stop exploring. I will wait for you here in the water. No need to hurry; I can hold my breath forever.";
+            stories['18'] = "My dear friend,\nWhen we were children, I dove into a small pond. Now we are both very old, and it's time for me to stop exploring. I will wait for you here in the water. But there's no need for you to hurry; I can hold my breath forever!";
             
             // old stories
             /*

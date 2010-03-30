@@ -7,10 +7,18 @@ package breath {
         [Embed(source="/../data/world-background.png")]
         private var BackgroundImage:Class;
 
+        [Embed(source='/../data/breath-mallets-128.mp3')]
+        public var GameMusic:Class;
+        [Embed(source='/../data/rev-noise.mp3')]
+        public var RevNoiseSound:Class;
+        
+        [Embed(source='/../data/gardenia.ttf', fontFamily='gardenia')]
+        private var GardeniaFont:String;
+        
         private var world:World;
         private var player:Player;
 
-        private var saved_restore_point:String = '0';
+        private var saved_restore_point:String = '1';
 
         private var oxygen_timer:Number = 10.0;
         private var oxygen_timer_display:FlxText;
@@ -27,8 +35,17 @@ package breath {
         private var notes:FlxGroup;
 
         private var background:FlxSprite;
+        private var won_done:Boolean = false;
+
+        private var title_text:FlxText;
+        private var start_button:FlxButton;
+        
+        private var game_started:Boolean = false;
         
         override public function create():void {
+            title_text = new FlxText(4, 24, 290, '"I Can Hold My Breath Forever"\nUse arrow keys to move.');
+            title_text.setFormat("gardenia", 8, 0xffffffff);
+            
             PlayState.world_darkness = new FlxSprite(0,0);
             world_darkness.createGraphic(FlxG.width, FlxG.height, darkness_color);
             world_darkness.scrollFactor.x = world_darkness.scrollFactor.y = 0;
@@ -38,7 +55,6 @@ package breath {
             world = new World();
 
             background = new FlxSprite(0,0,BackgroundImage);
-            this.add(background);
 
             // Add restore point sprites
             notes = new FlxGroup;
@@ -68,18 +84,16 @@ package breath {
 
             //this.add(world.walls_map);
             //this.add(world.water_map);
+            this.add(background);
             this.add(world.firefish_group);
             this.add(world.octopus);
-            
             this.add(notes);
             this.add(player);
             this.add(world_darkness);
             this.add(darkness);
             this.add(oxygen_timer_display);
             this.add(story_overlay);
-
-            player.x = world.octopus.x - 80;
-            player.y = world.octopus.y - 80;
+            this.add(title_text);
         }
 
         // For testing, skip ahead to the next restore point.
@@ -99,27 +113,44 @@ package breath {
         }
         
         override public function update():void {
+            // CHEAT CODE LOL
+            /*
             if(FlxG.keys.justPressed('N')) {
                 skip_ahead();
                 super.update();
                 return;
-            }
+            }*/
 
             if(player.won_game) {
                 oxygen_timer_display.alpha = 0;
                 darkness.alpha = 0;
-                
-                if(player.x < octopus.x - 24) {
-                    player.velocity.x += 80;
-                } else if(player.x > octopus.x) {
-                    player.velocity.x -= 80;
-                }
-                if(player.y > octopus.y) {
-                    player.velocity.y -= 40;
-                } else if(player.y < octopus.y) {
-                    player.velocity.y += 40;
+
+                var speed:uint = 400;
+                var target:FlxPoint = new FlxPoint(world.octopus.x - 16, world.octopus.y + 4);
+
+                if(player.x < target.x) {
+                    player.velocity.x += speed * FlxG.elapsed;
+                } else if(player.x > target.x) {
+                    player.velocity.x -= speed * FlxG.elapsed;
                 }
 
+                if(player.y > target.y) {
+                    player.velocity.y -= speed * FlxG.elapsed;
+                } else if(player.y < target.y) {
+                    player.velocity.y += speed * FlxG.elapsed;
+                }
+
+                if(Math.abs(player.y - target.y) < 16 &&
+                    Math.abs(player.x - target.x) <= 16 &&
+                    !won_done) {
+                    player.facing = FlxSprite.RIGHT;
+                    won_done = true;
+                    
+                    FlxG.fade.start(0xff000000, 5, function():void {
+                            FlxG.state = new EndGameState();
+                        });
+                }
+                
                 super.update();
                 return;
             }
@@ -131,11 +162,11 @@ package breath {
                     player_dead = false;
                 }
 
+                super.update();
+                
                 // Halt the player so they can't hold an arrow button
                 // down & end up outside a wall
                 player.velocity.x = player.velocity.y = 0;
-                
-                super.update();
                 return;
             }
             world.walls_map.collide(player);
@@ -166,7 +197,6 @@ package breath {
                 var air_bubble_entrance:FlxObject = world.airbubble_entrances[bubble_id];
                     if(air_bubble_entrance.overlaps(player)) {
                         if(bubble_id != saved_restore_point) {
-                            FlxG.log('updating restore point ' + bubble_id);
                             saved_restore_point = bubble_id;
                         }
                     }
@@ -212,11 +242,19 @@ package breath {
                 oxygen_timer_display.alpha = 0;
             }
 
-            // World darkness init (when the player dives into the pond
+            // Start music
+            if(!game_started && player.overlaps(world.darkness_init_area)) {
+                game_started = true;
+                
+                FlxG.playMusic(GameMusic);
+            }
+            
+            // World darkness init and kill titles (when the player dives into the pond);
             if(world_darkness.alpha < 1 && (world_darkness.alpha > 0 || player.overlaps(world.darkness_init_area))) {
                 world_darkness.alpha += FlxG.elapsed;
+                title_text.alpha -= FlxG.elapsed;
             }
-
+            
             // Endgame init
             if(player.overlaps(world.endgame_area)) {
                 player.won_game = true;
@@ -233,7 +271,6 @@ package breath {
         private function kill_player():void {
             // The player has drowned; move them back to the last restore point
             var restore_point:FlxPoint = world.airbubble_restore_points[saved_restore_point];
-            FlxG.log('moving to ' + saved_restore_point + ' at ' + restore_point.x + ',' + restore_point.y);
             
             player.x = restore_point.x;
             player.y = restore_point.y;
@@ -248,6 +285,9 @@ package breath {
             oxygen_timer_display.text = '0';
             darkness.alpha = 1.0;
             oxygen_timer_display.alpha = 1.0;
+
+            // Play sound effect
+            FlxG.play(RevNoiseSound);
         }
     }
 }

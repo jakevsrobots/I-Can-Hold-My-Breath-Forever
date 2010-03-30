@@ -4,7 +4,9 @@ package breath {
     public class Firefish extends FlxSprite {
         [Embed(source="/../data/glow-light.png")]
         private var GlowImage:Class;
-
+        [Embed(source="/../data/firefish.png")]
+        private var FishImage:Class;
+        
         private var start_point:FlxPoint;
         private var destination:FlxObject;
         
@@ -22,6 +24,8 @@ package breath {
         public function Firefish(X:uint, Y:uint, darkness:FlxSprite, water:FlxTilemap, walls:FlxTilemap):void {
             super(X, Y);
 
+            loadGraphic(FishImage, false, true, 7, 4);
+            
             start_point = new FlxPoint;
             destination = new FlxObject;
             
@@ -33,7 +37,7 @@ package breath {
             
             this.darkness = darkness;
 
-            createGraphic(1,1,0xffffffff);
+            //createGraphic(1,1,0xffffffff);
 
             glow = new FlxSprite(X,Y,GlowImage);
             glow.scale = new FlxPoint(2,2);
@@ -68,6 +72,13 @@ package breath {
                 get_new_destination();
             }
 
+            // Animation
+            if(velocity.x > 0) {
+                facing = RIGHT;
+            } else if(velocity.x < 0) {
+                facing = LEFT;
+            }
+            
             super.update();
         }
 

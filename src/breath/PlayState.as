@@ -41,6 +41,8 @@ package breath {
         private var start_button:FlxButton;
         
         private var game_started:Boolean = false;
+
+        private var cheats:Boolean = true;
         
         override public function create():void {
             title_text = new FlxText(4, 24, 290, '"I Can Hold My Breath Forever"\nUse arrow keys to move.');
@@ -76,7 +78,7 @@ package breath {
             oxygen_timer_display.alpha = 0.0;
             oxygen_timer_display.scrollFactor.x = oxygen_timer_display.scrollFactor.y = 0;
             
-            story_overlay = new StoryOverlay(16, 2);
+            story_overlay = new StoryOverlay(8, 2);
             
             world.walls_map.follow();
             FlxG.followAdjust(0.5, 0.5);
@@ -114,12 +116,13 @@ package breath {
         
         override public function update():void {
             // CHEAT CODE LOL
-            /*
-            if(FlxG.keys.justPressed('N')) {
-                skip_ahead();
-                super.update();
-                return;
-            }*/
+            if(cheats) {
+                if(FlxG.keys.justPressed('N')) {
+                    skip_ahead();
+                    super.update();
+                    return;
+                }
+            }
 
             if(player.won_game) {
                 oxygen_timer_display.alpha = 0;

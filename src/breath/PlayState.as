@@ -78,8 +78,8 @@ package breath {
             this.add(oxygen_timer_display);
             this.add(story_overlay);
 
-            player.x = world.octopus.x;
-            player.y = world.octopus.y;
+            player.x = world.octopus.x - 80;
+            player.y = world.octopus.y - 80;
         }
 
         // For testing, skip ahead to the next restore point.
@@ -101,6 +101,25 @@ package breath {
         override public function update():void {
             if(FlxG.keys.justPressed('N')) {
                 skip_ahead();
+                super.update();
+                return;
+            }
+
+            if(player.won_game) {
+                oxygen_timer_display.alpha = 0;
+                darkness.alpha = 0;
+                
+                if(player.x < octopus.x - 24) {
+                    player.velocity.x += 80;
+                } else if(player.x > octopus.x) {
+                    player.velocity.x -= 80;
+                }
+                if(player.y > octopus.y) {
+                    player.velocity.y -= 40;
+                } else if(player.y < octopus.y) {
+                    player.velocity.y += 40;
+                }
+
                 super.update();
                 return;
             }
@@ -196,6 +215,11 @@ package breath {
             // World darkness init (when the player dives into the pond
             if(world_darkness.alpha < 1 && (world_darkness.alpha > 0 || player.overlaps(world.darkness_init_area))) {
                 world_darkness.alpha += FlxG.elapsed;
+            }
+
+            // Endgame init
+            if(player.overlaps(world.endgame_area)) {
+                player.won_game = true;
             }
             
             super.update();

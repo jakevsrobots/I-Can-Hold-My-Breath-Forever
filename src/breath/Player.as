@@ -16,12 +16,14 @@ package breath {
 
         public var glow:FlxSprite;
         public var darkness:FlxSprite;        
+
+        public var won_game = false;
         
         public function Player(X:Number, Y:Number, darkness:FlxSprite):void {
             super(X,Y);
 
             this.darkness = darkness;
-        
+            
             glow = new FlxSprite(X,Y,GlowImage);
             glow.scale = new FlxPoint(4,4);
             glow.alpha = 1;
@@ -45,33 +47,35 @@ package breath {
         }
 
         override public function update():void {
-            // Physics/movement
-            if(gravity_on) {
-                acceleration.y = 420;
-                drag.x = 500;
-                drag.y = 0;
-            } else {
-                acceleration.y = 40;
-                drag.x = drag.y = 300;
-            }
+            if(!won_game) {
+                // Physics/movement
+                if(gravity_on) {
+                    acceleration.y = 420;
+                    drag.x = 500;
+                    drag.y = 0;
+                } else {
+                    acceleration.y = 40;
+                    drag.x = drag.y = 300;
+                }
 
-            if(push_up) {
-                acceleration.y = -40;
-            }
+                if(push_up) {
+                    acceleration.y = -40;
+                }
 
-            if(FlxG.keys.LEFT) {
-                facing = LEFT;
-                velocity.x -= _move_speed * FlxG.elapsed;
-            } else if(FlxG.keys.RIGHT) {
-                facing = RIGHT;
-                velocity.x += _move_speed * FlxG.elapsed;                
-            }
+                if(FlxG.keys.LEFT) {
+                    facing = LEFT;
+                    velocity.x -= _move_speed * FlxG.elapsed;
+                } else if(FlxG.keys.RIGHT) {
+                    facing = RIGHT;
+                    velocity.x += _move_speed * FlxG.elapsed;                
+                }
 
-            if(!gravity_on) {
-                if(FlxG.keys.UP) {
-                    velocity.y -= _move_speed * FlxG.elapsed;
-                } else if(FlxG.keys.DOWN) {
-                    velocity.y += _move_speed * FlxG.elapsed;                
+                if(!gravity_on) {
+                    if(FlxG.keys.UP) {
+                        velocity.y -= _move_speed * FlxG.elapsed;
+                    } else if(FlxG.keys.DOWN) {
+                        velocity.y += _move_speed * FlxG.elapsed;                
+                    }
                 }
             }
 

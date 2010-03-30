@@ -12,6 +12,8 @@ package breath {
         private var AutoTiles:Class;
         [Embed(source="/../data/water-autotiles.png")]
         private var WaterAutoTiles:Class;
+        [Embed(source="/../data/octopus.png")]
+        private var OctopusImage:Class;
         
         public static var TILE_SIZE:int = 8;
         public var walls_map:FlxTilemap;
@@ -24,6 +26,8 @@ package breath {
         public var airbubble_restore_points:Dictionary;
 
         public var darkness_init_area:FlxObject;
+        public var endgame_area:FlxObject;
+        public var octopus:FlxSprite;
         
         public var stories:Dictionary;
 
@@ -88,6 +92,9 @@ package breath {
                                 } else if(obj.type == 'darkness') {
                                     trace('darkness init');
                                     darkness_init_area = new FlxObject(obj.x, obj.y, obj.width, obj.height);
+                                } else if(obj.type == 'endgame') {
+                                    endgame_area = new FlxObject(obj.x, obj.y, obj.width, obj.height);
+                                    octopus = new FlxSprite(parseInt(obj.x) + 120, parseInt(obj.y) + 120, OctopusImage);
                                 }
                             }
                     } else if(objectgroup.name == 'firefish') {

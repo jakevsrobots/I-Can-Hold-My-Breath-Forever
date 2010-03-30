@@ -69,6 +69,7 @@ package breath {
             //this.add(world.walls_map);
             //this.add(world.water_map);
             this.add(world.firefish_group);
+            this.add(world.octopus);
             
             this.add(notes);
             this.add(player);
@@ -76,6 +77,9 @@ package breath {
             this.add(darkness);
             this.add(oxygen_timer_display);
             this.add(story_overlay);
+
+            player.x = world.octopus.x;
+            player.y = world.octopus.y;
         }
 
         // For testing, skip ahead to the next restore point.

@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Beulah &amp; the Hundred Birds</title>
+        <style type="text/css">
+            body,html { margin: 0; padding: 0; font-family: "Lucida Grande", Arial, Verdana; font-size: 12px;
+            background-color: #aee9f8; color: #333; }
+            h1 { font-size: 18px; }
+            strong { font-weight: bold; font-size: 14px; }
+            #page {width: 1000px; padding-top: 25px; }
+            #game { width: 640px; float: left; margin-left: 20px; }
+            #meta { float: left; margin-left: 20px; width: 320px; }
+            .clear { clear: both; }
+            p { margin: 0; padding: 0; margin-bottom: 15px; }
+            ul, ul li { list-style-type: square; }
+            h2, h1 { font-size: 16px; font-weight: bold; margin: 0;
+            margin-bottom: 10px; }
+
+        </style>
+        <script type="text/javascript" src="media/swfobject.js"></script>
+
+        <script type="text/javascript">
+            swfobject.registerObject("beulahbirdsgame", "9", "media/expressInstall.swf");
+        </script>
+    </head>
+    <body>
+        <div id="page">
+            <div id="game">
+                <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="640" height="360"
+                        id="beulahbirdsgame">
+                    <param name="movie" value="BeulahBirds.swf" />
+                    <!--[if !IE]>-->
+                    <object type="application/x-shockwave-flash" data="BeulahBirds.swf" width="640" height="360">
+                        <!--<![endif]-->
+                             <p>Beulah &amp; the Hundred Birds</p>
+                             <!--[if !IE]>-->
+                    </object>
+                    <!--<![endif]-->
+                         </object>
+            </div>
+            <div id="meta">
+                <h1>Beulah &amp; the Hundred Birds</h1>
+            </div>
+        </div>
+    </body>
+</html>

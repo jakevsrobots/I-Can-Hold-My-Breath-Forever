@@ -22,6 +22,8 @@ package breath {
 
         public var airbubble_entrances:Dictionary;
         public var airbubble_restore_points:Dictionary;
+
+        public var darkness_init_area:FlxObject;
         
         public var stories:Dictionary;
 
@@ -69,7 +71,7 @@ package breath {
 
             // Object groups
             for each(var objectgroup:Object in map.objectgroups) {
-                    if(objectgroup.name == 'airbubbles') {
+                    if(objectgroup.name == 'events') {
                         for each(var obj:Object in objectgroup.objects) {
                                 var bubble_id:String = obj.name.split('-')[1];
 
@@ -83,6 +85,9 @@ package breath {
                                     // Just use a generic FlxObject here since all we're doing with
                                     // entrances is checking overlaps.
                                     airbubble_entrances[bubble_id] = new FlxObject(obj.x, obj.y, obj.width, obj.height);
+                                } else if(obj.type == 'darkness') {
+                                    trace('darkness init');
+                                    darkness_init_area = new FlxObject(obj.x, obj.y, obj.width, obj.height);
                                 }
                             }
                     } else if(objectgroup.name == 'firefish') {
@@ -93,7 +98,9 @@ package breath {
                                 new Firefish(
                                     fish_obj.x - (fish_obj.x % World.TILE_SIZE),
                                     fish_obj.y - (fish_obj.y % World.TILE_SIZE),
-                                    PlayState.world_darkness
+                                    PlayState.world_darkness,
+                                    water_map,
+                                    walls_map
                                 )
                             );
                         }
@@ -103,25 +110,24 @@ package breath {
             // Stories
             stories = new Dictionary;
 
-            stories['1'] = "My dear friend,\nI cannot know how long you waited before following me, but I longingly look forward to meeting you in these underwater caves.";
+            stories['1'] = "My dear friend,\nI cannot know how long you waited before following me, but I look forward to meeting you in these underwater caves!";
             stories['2'] = "My dear friend,\nWhen I dove into that small pond, I knew it may take you some time to come along.";
             stories['3'] = "My dear friend,\nThis tunnel seems to be a dead end; I will backtrack a bit and then dive deeper downward. How deep and dark this cave must be!";
-            stories['4'] = "My dear friend,\nDo you remember the small green fish we used to catch in this pond? They must prefer the shallow water, I don't see them at this depth.";
-            stories['5'] = "My dear friend,\nIt's been hours now, my friend. I wonder if you're just behind me; I know moving through these caves must be a bit slower with your limitations...";
-            stories['6'] = "My dear friend,\nOut of the corner of my eye I saw something move back here and thought it might be you; maybe you had somehow outperformed me in navigating this darkness! But it was just one of those glowing fish.";
-            stories['7'] = "My dear friend,\nIt's so dark here. You never could see well in the dark. That, and you never could hold your breath for long. At most, what, nine seconds? Ten?";
-            stories['8'] = "My dear friend,\nI stopped here, and waited for you. I wonder: now that you're reading this, you must be quite deep in these caves. I've been here for months... Does it feel like home to you?";
-            stories['9'] = "My dear friend,\nWhat an enormous, beautiful cavern! I wish I could wait here longer, but I must press on. How are you stomaching the pressure? Sometimes I shout questions and pretend the echoes are your answers.";
-            stories['10'] = "My dear friend,\nI'm sure you've noticed the strange behavior of the water down here. At this depth, water and air interact like two mortal enemies, repelling one another into the strangest configurations.";
-            stories['11'] = "";
-            stories['12'] = "";
-            stories['13'] = "";
-            stories['14'] = "";
-            stories['15'] = "";
-            stories['16'] = "";
-            stories['17'] = "";
-            stories['18'] = "";
-            stories['endgame'] = "";            
+            stories['4'] = "My dear friend,\nDo you remember the small green fish we used to catch in this pond? They must prefer the shallow water, I don't see them down here.";
+            stories['5'] = "My dear friend,\nIt's been hours now! I wonder if you're just behind me. I know moving through these caves must be a bit slower with your limitations...";
+            stories['6'] = "My dear friend,\nOut of the corner of my eye I saw something move back here and thought it might be you; maybe you had somehow passed me! But it was just one of those glowing fish.";
+            stories['7'] = "My dear friend,\nIt's so dark here. I can't see well in the dark. And you can't hold your breath for long! It will be difficult for both of us.";
+            stories['8'] = "My dear friend,\nI stopped here for breakfast. I wonder: now that you're reading this, you must be quite deep in these caves. I've been here for months... Does it feel like bhome to you?";
+            stories['9'] = "My dear friend,\nWhat an enormous, beautiful cavern! How are you stomaching the pressure? Well, I have to go now!";
+            stories['10'] = "My dear friend,\nI'm sure you've noticed the strange behavior of the water down here. Down here, water and air are like two mortal enemies, pushing each other into the strangest positions.";
+            stories['11'] = "My dear friend,\nI stopped here to rest my eye and stretch. I was thinking of you and the meals we used to cook together. Soon I hope we will be making cave pies!";
+            stories['12'] = "My dear friend,\nHas it really been a year? I was looking at that little leatherbound calendar you gave me and the realization just hit me. Oh how I hope you will catch up with me soon!";
+            stories['13'] = "My dear friend,\nI am a bit embarrassed to tell you this: I just spent most of a week running in circles! These tunnels are so confusing. Well, time to press on.";
+            stories['14'] = "My dear friend,\nThese glowing fish are a TREMENDOUS help! And also some comfort; it has been years since I jumped into that pond...";
+            stories['15'] = "My dear friend,\nIt's a bit terrifying, isn't it? Such a long drop, I don't see how we could climb back. I've spent a month here already, just working up the courage...";
+            stories['16'] = "My dear friend,\nThe pressure down here, what a headache! I have a tip: chew on some of the tough seaweed. I hope you find this note, some day.";
+            stories['17'] = "My dear friend,\nI must be getting old; that climb took a lot out of me. I hope some day you will know what I mean.";
+            stories['18'] = "My dear friend,\nWhen we were children, I dove into a small pond. Now we are both very old, and it's time for me to stop exploring. I will wait for you here in the water. No need to hurry; I can hold my breath forever.";
             
             // old stories
             /*

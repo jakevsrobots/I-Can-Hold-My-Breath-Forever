@@ -33,6 +33,7 @@ package breath {
             world_darkness.createGraphic(FlxG.width, FlxG.height, darkness_color);
             world_darkness.scrollFactor.x = world_darkness.scrollFactor.y = 0;
             world_darkness.blend = "multiply";
+            world_darkness.alpha = 0;
             
             world = new World();
 
@@ -118,8 +119,10 @@ package breath {
 
             if(world.water_map.overlaps(player)) {
                 player.in_water = true;
+                player.glow.scale.x = player.glow.scale.y = 4;
             } else {
                 player.in_water = false;
+                player.glow.scale.x = player.glow.scale.y = 8;                
             }
 
             if(world.safezone_map.overlaps(player) || world.water_map.overlaps(player)) {
@@ -180,17 +183,17 @@ package breath {
                     oxygen_timer = 0.0;
                     kill_player();
                 }
-
-                world_darkness.alpha = 1;
             } else {
                 oxygen_timer = 10.0;
                 darkness.alpha = 0;
                 oxygen_timer_display.alpha = 0;
-
-                world_darkness.alpha = 0;
             }
 
-            //FlxG.log('oxygen timer: ' + oxygen_timer);
+            // World darkness init (when the player dives into the pond
+            if(world_darkness.alpha < 1 && (world_darkness.alpha > 0 || player.overlaps(world.darkness_init_area))) {
+                world_darkness.alpha += FlxG.elapsed;
+            }
+            
             super.update();
         }
 

@@ -6,7 +6,7 @@ package breath {
         private var GlowImage:Class;
 
         private var start_point:FlxPoint;
-        private var destination:FlxPoint;
+        private var destination:FlxObject;
         
         private var move_speed:uint = 120;        
 
@@ -16,15 +16,20 @@ package breath {
         public var player:Player;
 
         private var display_test_point:FlxPoint;
+        private var water:FlxTilemap;
+        private var walls:FlxTilemap;        
         
-        public function Firefish(X:uint, Y:uint, darkness:FlxSprite):void {
+        public function Firefish(X:uint, Y:uint, darkness:FlxSprite, water:FlxTilemap, walls:FlxTilemap):void {
             super(X, Y);
 
             start_point = new FlxPoint;
-            destination = new FlxPoint;            
+            destination = new FlxObject;
             
             start_point.x = X;
             start_point.y = Y;
+
+            this.water = water;
+            this.walls = walls;
             
             this.darkness = darkness;
 
@@ -95,12 +100,27 @@ package breath {
         }
 
         public function get_new_destination():void {
-            destination = new FlxPoint(
-                start_point.x + (uint(Math.random() * 100) - 50),
-                start_point.y + (uint(Math.random() * 100) - 50)
-            );
+            var done:Boolean = false;
 
-            move_speed = 140 + (Math.random() * 20);
+            while(!done) {
+                if(player) {
+                    destination = new FlxObject(
+                        player.x + (uint(Math.random() * 100) - 50),
+                        player.y + (uint(Math.random() * 100) - 50)
+                    );
+                } else {
+                    destination = new FlxObject(
+                        start_point.x + (uint(Math.random() * 100) - 50),
+                        start_point.y + (uint(Math.random() * 100) - 50)
+                    );
+                }
+
+                move_speed = 140 + (Math.random() * 20);
+
+                if(water.overlaps(destination)) {
+                    done = true;
+                }
+            }
         }
 
 

@@ -51,7 +51,7 @@ package breath {
                 drag.x = 500;
                 drag.y = 0;
             } else {
-                acceleration.y = 0;
+                acceleration.y = 40;
                 drag.x = drag.y = 300;
             }
 

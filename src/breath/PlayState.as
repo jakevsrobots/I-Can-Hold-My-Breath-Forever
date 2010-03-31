@@ -159,17 +159,16 @@ package breath {
             }
             
             if(player_dead) {
+                player.active = false;
+                
                 player_death_timer -= FlxG.elapsed;
                 
                 if(player_death_timer <= 0.0) {
                     player_dead = false;
+                    player.active = true;
                 }
 
                 super.update();
-                
-                // Halt the player so they can't hold an arrow button
-                // down & end up outside a wall
-                player.velocity.x = player.velocity.y = 0;
                 return;
             }
             world.walls_map.collide(player);

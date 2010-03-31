@@ -3,6 +3,8 @@ package breath {
     
     [SWF(width="640", height="320", backgroundColor="#ffffff")];
 
+    [Frame(factoryClass="Preloader")]
+
     public class Main extends FlxGame {
         //public static var bgcolor:uint = 0xff303030;
         //public static var bgcolor:uint = 0xffc0c0c0;
